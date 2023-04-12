@@ -1,0 +1,3 @@
+@pcmanfm --desktop --profile LXDE-pi
+@unclutter-xfixes -b --timeout 0
+@bash /home/kptv/kwl/run_kwl.sh
