@@ -1,25 +1,24 @@
 #!/bin/bash -e
 
-# Remove kwl directory
+# Remove apps directory
 on_chroot << EOF
-        echo "kwl removed"
-        rm -rf /home/${FIRST_USER_NAME}/kwl
+        rm -rf /home/${FIRST_USER_NAME}/apps
 EOF
 
 # Change wallpaper
 install -v -m 644 "files/pcmanfm_desktop-items-0.conf" "${ROOTFS_DIR}/etc/xdg/pcmanfm/LXDE-pi/desktop-items-0.conf"
-install -v -m 644 "files/pcmanfm_kiwiplan_wallpaper.jpg" "${ROOTFS_DIR}/usr/share/rpd-wallpaper/kiwiplan_wallpaper.jpg"
+install -v -m 644 "files/pcmanfm_pire_wallpaper.png" "${ROOTFS_DIR}/usr/share/rpd-wallpaper/pire_wallpaper.png"
 
-# Electron app to run
-# - The directory to contain Kiwiplan Web Launcher files
-install -v -o 1000 -g 1000 -m 755 -d "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/kwl"
+# The directory to contain applications to run
+install -v -o 1000 -g 1000 -m 755 -d "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/apps"
+
 # - The shell script to start Kiwiplan Web Launcher
-install -v -o 1000 -g 1000 -m 644 "files/run_kwl.sh" "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/kwl/"
+#install -v -o 1000 -g 1000 -m 644 "files/run_kwl.sh" "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/apps/"
 # - The configuration file required by Kiwiplan Web Launcher
-install -v -o 1000 -g 1000 -m 644 "files/kwl.conf" "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/kwl/"
+#install -v -o 1000 -g 1000 -m 644 "files/kwl.conf" "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/kwl/"
 # - The zip file format of Kiwiplan Web Launcher
 # - The latest Kiwiplan Web Launcher should be downloaded from nznfsjavainstallers/data/currentgit/web-launcher/
-install -v -o 1000 -g 1000 -m 644 "files/kwl.zip" "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/kwl/"
+#install -v -o 1000 -g 1000 -m 644 "files/kwl.zip" "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/kwl/"
 
 # Automatic start up
 install -v -m 644 "files/lxsession_autostart" "${ROOTFS_DIR}/etc/xdg/lxsession/LXDE-pi/autostart"
@@ -57,11 +56,11 @@ on_chroot << EOF
         systemctl disable bluealsa.service
         systemctl disable bluetooth.service
 
-        pushd /home/${FIRST_USER_NAME}/kwl
-        unzip -u ./kwl.zip
-        chmod +x ./kiwiweblauncher
-        popd
-        chown -R ${FIRST_USER_NAME}:${FIRST_USER_NAME} /home/${FIRST_USER_NAME}/kwl
+        #pushd /home/${FIRST_USER_NAME}/apps
+        #unzip -u ./kwl.zip
+        #chmod +x ./kiwiweblauncher
+        #popd
+        chown -R ${FIRST_USER_NAME}:${FIRST_USER_NAME} /home/${FIRST_USER_NAME}/apps
 
         apt update
         apt install -y log2ram unclutter-xfixes

@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# Wait until eth0 is connected
 timeout=60
 check_try=0
 check_result=1
@@ -13,4 +15,6 @@ while true; do
     sleep 1
   fi
 done
-nohup ./kwl/kiwiweblauncher --configFile ./kwl/kwl.conf & > /dev/null
+
+# Now run the app
+nohup firefox & > /dev/null
